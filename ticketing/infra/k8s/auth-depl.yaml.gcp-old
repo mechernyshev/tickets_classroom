@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: auth
-          image: mikhaildockerdev/auth
+          image: us.gcr.io/ticketing-dev-440212/auth
+#          image: mikhaildockerdev/auth
 ---
 apiVersion: v1
 kind: Service
