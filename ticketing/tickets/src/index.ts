@@ -11,7 +11,7 @@ const start = async () => {
 
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        console.log(`Connected to MongoDb at: ${process.env.MONGO_URI}`);
+        console.log(`Connected to MongoDb at ${process.env.MONGO_URI}`);
     } catch (err) {
         console.log(err);
     }
