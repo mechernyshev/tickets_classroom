@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import useRequest from "../../hooks/use-request";
 import Router from 'next/router';
+/*import Head from 'next/head';*/
+
 
 export default () => {
     const [email, setEmail] = useState('');
@@ -23,6 +25,9 @@ export default () => {
     }
 
     return <form onSubmit={onSubmit}>
+{/*        <Head>
+            <script src="/qyTrpASl/init.js" async></script>
+        </Head>*/}
         <h1>Sign In</h1>
         <div className="form-group">
             <label>Email Address</label>
