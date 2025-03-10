@@ -2,8 +2,6 @@ import express, {Request, Response} from 'express';
 import {NotAuthorizedError, NotFoundError, OrderStatus, requireAuth} from "@mcgittix/common";
 import {Order} from "../models/order";
 import {Ticket} from "../models/ticket";
-import request from "supertest";
-import {app} from "../app";
 import {OrderCancelledPublisher} from "../events/publishers/order-cancelled-publisher";
 import {natsWrapper} from "../nats-wrapper";
 
