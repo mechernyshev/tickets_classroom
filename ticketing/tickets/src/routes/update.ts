@@ -4,7 +4,7 @@ import {
     validateRequest,
     NotFoundError,
     requireAuth,
-    NotAuthorizedError,
+    NotAuthorizedError, BadRequestError,
 } from '@mcgittix/common';
 import { Ticket } from '../models/ticket';
 import {TicketUpdatedPublisher} from "../events/publishers/ticket-updated-publisher";
@@ -30,6 +30,10 @@ router.put(
 
         if (!ticket) {
             throw new NotFoundError();
+        }
+
+        if (ticket.orderId) {
+            throw new BadRequestError('Cannot update a ticket that has been ordered');
         }
 
         if (ticket.userId !== req.currentUser!.id) {
