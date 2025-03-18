@@ -7,6 +7,7 @@ import {
     NotFoundError, NotAuthorizedError, OrderStatus,
 } from "@mcgittix/common";
 import {Order} from "../models/order";
+import stripe from "stripe";
 
 
 const router = express.Router();
@@ -44,6 +45,12 @@ router.post('/api/payments',
     if (order.status === OrderStatus.Cancelled) {
         throw new BadRequestError('Cannot pay for cancelled order');
     }
+
+    await stripe.charges.create({
+        currency: 'usd',
+        amount: order.price * 100,
+        source: token,
+    })
 
     res.send({success: true});
 })
