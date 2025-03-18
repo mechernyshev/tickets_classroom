@@ -7,7 +7,7 @@ import {
     NotFoundError, NotAuthorizedError, OrderStatus,
 } from "@mcgittix/common";
 import {Order} from "../models/order";
-import stripe from "stripe";
+import {stripe} from "../stripe";
 
 
 const router = express.Router();
@@ -52,7 +52,17 @@ router.post('/api/payments',
         source: token,
     })
 
-    res.send({success: true});
+
+/*        // Create a PaymentIntent
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: order.price * 100, // Amount in cents
+        currency: 'usd',
+        payment_method: token, // Token or payment method ID
+    /!*            confirmation_method: 'manual', // Optional: Set manual or automatic confirmation
+        confirm: true, // Confirm the payment immediately (if you have all details)*!/
+    });*/
+
+    res.status(201).send({success: true});
 })
 
 export {router as createChargeRouter};
