@@ -8,6 +8,7 @@ import {
 } from "@mcgittix/common";
 import {Order} from "../models/order";
 import {stripe} from "../stripe";
+import {Payment} from "../models/payment";
 
 
 const router = express.Router();
@@ -31,7 +32,7 @@ router.post('/api/payments',
 
     const order = await Order.findById(orderId);
 
-    // checiking if order was not found
+    // checking if order was not found
     if (!order) {
         throw new NotFoundError();
     }
@@ -46,13 +47,16 @@ router.post('/api/payments',
         throw new BadRequestError('Cannot pay for cancelled order');
     }
 
-    await stripe.charges.create({
+    const charge = await stripe.charges.create({
         currency: 'usd',
         amount: order.price * 100,
         source: token,
     })
 
-
+    const payment = Payment.build({
+        orderId,
+        stripeId: charge.id,
+    })
 /*        // Create a PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
         amount: order.price * 100, // Amount in cents
