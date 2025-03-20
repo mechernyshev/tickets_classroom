@@ -21,4 +21,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run tests for auth service
-        run: cd auth && npm install && npm run test:ci
+        run: cd ticketing/auth && npm install && npm run test:ci
